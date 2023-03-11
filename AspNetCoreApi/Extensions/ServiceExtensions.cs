@@ -1,4 +1,7 @@
-﻿namespace AspNetCoreApi.Extensions
+﻿using Contracts;
+using LoggerService;
+
+namespace AspNetCoreApi.Extensions
 {
     public static class ServiceExtensions
     {
@@ -18,6 +21,12 @@
         public static void ConfigureIISIntergartion(this IServiceCollection services)
         {
 
+        }
+
+        // 03- Configure Logger Service
+        public static void ConfigureLoggerService(this IServiceCollection services) 
+        {
+            services.AddSingleton<ILoggerManager, LoggerManager>();
         }
     }
 }
