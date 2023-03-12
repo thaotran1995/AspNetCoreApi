@@ -14,6 +14,10 @@ builder.Services.ConfigureIISIntergartion();
 // Add Congigure Logger service
 builder.Services.ConfigureLoggerService();
 
+// Add the context service
+builder.Services.ConfigureMySqlContext(builder.Configuration);
+builder.Services.ConfigureRepositoryWrapper();
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
