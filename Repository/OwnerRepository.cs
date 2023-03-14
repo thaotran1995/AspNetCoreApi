@@ -14,5 +14,10 @@ namespace Repository
         public OwnerRepository(RepositoryContext repositoryContext) : base(repositoryContext)
         {
         }
+
+        public IEnumerable<Owner> GetAllOwners()
+        {
+            return FindAll().OrderBy(x => x.Name).ToList();
+        }
     }
 }
