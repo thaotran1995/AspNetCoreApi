@@ -63,5 +63,31 @@ namespace AspNetCoreApi.Controllers
                 return StatusCode(500, "internal server error");
             }   
         }
+
+        [HttpGet("{id}/account")]
+        public IActionResult GetOwnerWithDetails(Guid id)
+        {
+            try
+            {
+                var owner = _repository.Owner.GetOwnerWithDetails(id);
+                if(owner is null)
+                {
+                    _logger.LogError($"Owner with id: {id} is not be found");
+                    return NotFound();
+                }
+                else
+                {
+                    _logger.LogInfo($"Returned owner with id: {id}");
+                    var result = _mapper.Map<OwnerDTO> (owner);   
+                    return Ok(result);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Something went wrong inside GetOwnerWithDetails action: {ex.Message}");
+                return StatusCode(500, "Interal server error");
+                
+            }
+        }
     }
 }

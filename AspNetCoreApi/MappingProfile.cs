@@ -8,7 +8,8 @@ namespace AspNetCoreApi
     {
         public MappingProfile()
         { 
-            CreateMap<Owner, OwnerDTO>();    
+            CreateMap<Owner, OwnerDTO>();   
+            CreateMap<Account, AccountDTO>();
         }
     }
 }
