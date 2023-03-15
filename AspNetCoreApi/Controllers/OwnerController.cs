@@ -37,5 +37,31 @@ namespace AspNetCoreApi.Controllers
             }
         }
 
+        [HttpGet("{id}")]
+        public IActionResult GetOwnerById(Guid id) 
+        {
+            try
+            {
+                var owner = _repository.Owner.GetOwnerById(id);
+                if(owner is null)
+                {
+                    _logger.LogError($"Owner wwith id: {id} not be found in the DB");
+                    return NotFound();
+                }
+                else
+                {
+                    _logger.LogInfo($"return Owner with Id: {id}");
+                    var result = _mapper.Map<OwnerDTO>(owner);
+                    return Ok(result);
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                _logger.LogError($"Something went wrong inside GetOwnerById action: {ex.Message} ");
+                return StatusCode(500, "internal server error");
+            }   
+        }
     }
 }

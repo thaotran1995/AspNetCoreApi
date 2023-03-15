@@ -19,5 +19,10 @@ namespace Repository
         {
             return FindAll().OrderBy(x => x.Name).ToList();
         }
+
+        public Owner GetOwnerById(Guid ownerId)
+        {
+            return FindByCondition(x => x.Id.Equals(ownerId)).FirstOrDefault();
+        }
     }
 }
