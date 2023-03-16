@@ -21,6 +21,11 @@ namespace Repository
             Create(owner);
         }
 
+        public void DeleteOwner(Owner owner)
+        {
+            Delete(owner);
+        }
+
         public IEnumerable<Owner> GetAllOwners()
         {
             return FindAll().OrderBy(x => x.Name).ToList();

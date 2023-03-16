@@ -154,5 +154,32 @@ namespace AspNetCoreApi.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteOwner(Guid id)
+        {
+            try
+            {
+                var owner = _repository.Owner.GetOwnerById(id);
+                if(owner == null)
+                {
+                    _logger.LogError($"Owner with id: {id}, hasn't been found in db");
+                    return NotFound();
+                }
+                if (_repository.Account.AccountsByOwner(id).Any())
+                {
+                    _logger.LogError($"Can't delete owner with id: {id}. It has related accounts. Delete those accounts first");
+                    return BadRequest("Can't delete owner. It has related accounts. Delete those accounts first");
+                }
+                _repository.Owner.Delete(owner);
+                _repository.Save();
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Something went wrong inside DeleteOwner action: {ex.Message}");
+                return StatusCode(500, "Internal server error");
+            }
+        }
     }
 }
