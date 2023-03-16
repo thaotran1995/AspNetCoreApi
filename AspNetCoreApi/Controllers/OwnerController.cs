@@ -120,5 +120,39 @@ namespace AspNetCoreApi.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateOwner(Guid id, [FromBody] OwnerForUpdateDTO owner)
+        {
+            try
+            {
+                if(owner is null)
+                {
+                    _logger.LogError($"Owner Object is null");
+                    return BadRequest("Owner object is null");
+                }
+                if (!ModelState.IsValid)
+                {
+                    _logger.LogError($"Invalid owner object sent from client");
+                    return BadRequest("Invalid model object");
+                }
+                var ownerEntity = _repository.Owner.GetOwnerById(id);
+                if(ownerEntity is null)
+                {
+                    _logger.LogError($"Owner with id: {id}, hasn't been found in db");
+                    return NotFound();
+                }
+                _mapper.Map(owner, ownerEntity);
+                _repository.Owner.Update(ownerEntity);
+                _repository.Save();
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+
+                _logger.LogError($"Something went wrong inside Update action: {ex.Message}");
+                return StatusCode(500, "Internal server error");
+            }
+        }
     }
 }
