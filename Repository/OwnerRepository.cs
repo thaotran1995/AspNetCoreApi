@@ -16,6 +16,16 @@ namespace Repository
         {
         }
 
+        public void CreateOwner(Owner owner)
+        {
+            Create(owner);
+        }
+
+        public void DeleteOwner(Owner owner)
+        {
+            Delete(owner);
+        }
+
         public IEnumerable<Owner> GetAllOwners()
         {
             return FindAll().OrderBy(x => x.Name).ToList();
@@ -29,6 +39,11 @@ namespace Repository
         public Owner GetOwnerWithDetails(Guid ownerId)
         {
             return FindByCondition(x => x.Id.Equals(ownerId)).Include(x=>x.Accounts).FirstOrDefault();
+        }
+
+        public void UpdateOwner(Owner owner)
+        {
+            Update(owner);
         }
     }
 }
