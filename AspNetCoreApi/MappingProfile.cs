@@ -10,6 +10,7 @@ namespace AspNetCoreApi
         { 
             CreateMap<Owner, OwnerDTO>();   
             CreateMap<Account, AccountDTO>();
+            CreateMap<OwnerForCreationDTO, Owner>();
         }
     }
 }

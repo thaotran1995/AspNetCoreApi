@@ -16,6 +16,11 @@ namespace Repository
         {
         }
 
+        public void CreateOwner(Owner owner)
+        {
+            Create(owner);
+        }
+
         public IEnumerable<Owner> GetAllOwners()
         {
             return FindAll().OrderBy(x => x.Name).ToList();
