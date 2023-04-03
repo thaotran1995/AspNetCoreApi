@@ -14,9 +14,10 @@ namespace AspNetCoreApi.Extensions
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
-                    builder => builder.AllowAnyOrigin()
+                    builder => builder
                     .AllowAnyMethod()
-                    .AllowAnyHeader());
+                    .AllowAnyHeader()
+                    .WithOrigins("http://localhost:3000"));
             });
         }
         
