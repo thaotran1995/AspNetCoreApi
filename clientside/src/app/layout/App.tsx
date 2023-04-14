@@ -1,8 +1,9 @@
 import axios from 'axios';
 import React, { useEffect, useState} from 'react';
+import { Owner } from './models/o/owner';
 
 function App() {
-  const [owners, setOwners] = useState<any[]>([]);
+  const [owners, setOwners] = useState<Owner[]>([]);
   useEffect(() => {
     axios.get("/api/owner")
     .then(response => {
